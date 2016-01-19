@@ -3,4 +3,5 @@
     <string name="save_text">Save</string>
     <string name="reset_text">Reset</string>
     <string name="option_dialog_title">Options</string>
+    <string name="settings_button">Save Settings</string>
 </resources>
