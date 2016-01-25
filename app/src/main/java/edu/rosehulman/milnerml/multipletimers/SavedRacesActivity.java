@@ -10,6 +10,6 @@ public class SavedRacesActivity extends AppCompatActivity{
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.timers_layout);
+        setContentView(R.layout.saved_races);
     }
 }
