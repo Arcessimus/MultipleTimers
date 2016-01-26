@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+//import android.support.design.widget.FloatingActionButton;
 
 /**
  * Created by kumarms on 1/25/2016.
@@ -28,7 +29,7 @@ public class TimingActivity extends AppCompatActivity {
         mTimerAdapter = new TimerAdapter(this);
         mRecyclerView = (RecyclerView)findViewById(R.id.recycer_view);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);// it isn't importing properly
+        //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);// it isn't importing properly
         Button addingButton = (Button) findViewById(R.id.adding_button);
         addingButton.setOnClickListener(new View.OnClickListener() {
             @Override

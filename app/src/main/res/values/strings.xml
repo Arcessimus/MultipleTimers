@@ -4,4 +4,7 @@
     <string name="reset_text">Reset</string>
     <string name="option_dialog_title">Options</string>
     <string name="settings_button">Save Settings</string>
+    <string name="edit_button_text">Edit</string>
+    <string name="confirmation_text">Are you sure you want to save these settings?</string>
+    <string name="cancel_text">Cancel</string>
 </resources>
