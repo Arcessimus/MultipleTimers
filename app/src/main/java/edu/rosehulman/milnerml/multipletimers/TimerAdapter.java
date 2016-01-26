@@ -14,18 +14,22 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+//import javax.security.auth.callback.Callback;
+
 /**
  * Created by kumarms on 1/25/2016.
  */
 public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
     private ArrayList<Timer> mTimers = new ArrayList<>();
     private Context mContext;
+    private Callback mCallBack;
 
     public TimerAdapter() {
     }
 
-    public TimerAdapter(Context mContext) {
+    public TimerAdapter(Context mContext, Callback callback) {
         this.mContext = mContext;
+        this.mCallBack = callback;
     }
 
     public void add(Timer timer){
@@ -42,17 +46,37 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
     public void onBindViewHolder(TimerAdapter.TimerView holder, int position) {
         final Timer mCurrentTimer = mTimers.get(position);
         holder.nameView.setText(mCurrentTimer.getText());
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+        public boolean onLongClick(View v){
+                mCallBack.onEdit(mCurrentTimer);
+                return true;
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return mTimers.size();
     }
+
+    public void update(Timer timer, String name) {
+        timer.setName(name);
+        notifyDataSetChanged();
+    }
+
+    public void remove(Timer timer) {
+        mTimers.remove(timer);
+    }
+
     public class TimerView extends RecyclerView.ViewHolder {
         private TextView nameView;
         public TimerView(View itemView) {
             super(itemView);
             nameView = (TextView)itemView.findViewById(R.id.runner_name);
         }
+    }
+    public interface Callback {
+        public void onEdit (Timer timer);
     }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,7 +18,7 @@ import android.widget.EditText;
 /**
  * Created by kumarms on 1/25/2016.
  */
-public class TimingActivity extends AppCompatActivity {
+public class TimingActivity extends AppCompatActivity implements TimerAdapter.Callback{
     private TimerAdapter mTimerAdapter;
     private RecyclerView mRecyclerView;
     @Override
@@ -25,32 +26,32 @@ public class TimingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timers_layout);
 
-        mTimerAdapter = new TimerAdapter(this);
+        mTimerAdapter = new TimerAdapter(this,(TimerAdapter.Callback)this);
         mRecyclerView = (RecyclerView)findViewById(R.id.recycer_view);
+        mRecyclerView.setAdapter(mTimerAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);// it isn't importing properly
         Button addingButton = (Button) findViewById(R.id.adding_button);
         addingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showAddEditDialog(null);
             }
         });
     }
-    public void showAddEditDialog(final WeatherPic weatherPic) {
+    public void showAddEditDialog(final Timer timer) {
         DialogFragment df = new DialogFragment() {
             public Dialog onCreateDialog(Bundle savedInstanceState) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle(getString(weatherPic == null ? R.string.dialog_add_title : R.string.dialog_edit_title));
-                View view = getActivity().getLayoutInflater().inflate(R.layout.addedit_element, null, false);
+                builder.setTitle(getString(timer == null ? R.string.dialog_add_title : R.string.dialog_edit_title));
+                View view = getActivity().getLayoutInflater().inflate(R.layout.adding_runner_dialog, null, false);
                 builder.setView(view);
-                final EditText captionEditText = (EditText) view.findViewById(R.id.dialog_add_weather_pic_text);
-                final EditText URLEditText = (EditText) view.findViewById(R.id.dialog_add_url_text);
-                if (weatherPic != null) {
+                final EditText runnerName = (EditText) view.findViewById(R.id.editText);
+                if (timer != null) {
                     // pre-populate
-                    captionEditText.setText(weatherPic.getCaption());
-                    URLEditText.setText(weatherPic.getUrl());
+                    runnerName.setText(timer.getText());
 
                     TextWatcher textWatcher = new TextWatcher() {
                         @Override
@@ -65,30 +66,27 @@ public class TimingActivity extends AppCompatActivity {
 
                         @Override
                         public void afterTextChanged(Editable s) {
-                            String quote = captionEditText.getText().toString();
-                            String movie = URLEditText.getText().toString();
-                            mAdapter.update(weatherPic, quote, movie);
+                            String quote = runnerName.getText().toString();
+                            mTimerAdapter.update(timer, quote);
                         }
                     };
 
-                    captionEditText.addTextChangedListener(textWatcher);
-                    URLEditText.addTextChangedListener(textWatcher);
+                    runnerName.addTextChangedListener(textWatcher);
                 }
 
                 builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (weatherPic == null) {
-                            String caption = captionEditText.getText().toString();
-                            String url = URLEditText.getText().toString();
-                            mAdapter.add(new WeatherPic(caption, url));
+                        if (timer == null) {
+                            String name = runnerName.getText().toString();
+                            mTimerAdapter.add(new Timer(name));
                         }
                     }
                 });
                 builder.setNeutralButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mAdapter.remove(weatherPic);
+                        mTimerAdapter.remove(timer);
                     }
                 });
                 builder.setNegativeButton(android.R.string.cancel, null);
@@ -97,5 +95,10 @@ public class TimingActivity extends AppCompatActivity {
             }
         };
         df.show(getSupportFragmentManager(), "add");
+    }
+
+    @Override
+    public void onEdit(Timer timer) {
+        showAddEditDialog(timer);
     }
 }
