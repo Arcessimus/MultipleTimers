@@ -7,4 +7,6 @@
     <string name="edit_button_text">Edit</string>
     <string name="confirmation_text">Are you sure you want to save these settings?</string>
     <string name="cancel_text">Cancel</string>
+    <string name="about_title">About</string>
+    <string name="tutorial_title">Tutorial</string>
 </resources>
