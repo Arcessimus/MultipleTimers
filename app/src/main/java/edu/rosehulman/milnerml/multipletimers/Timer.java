@@ -12,11 +12,36 @@ public class Timer {
     ArrayList<Integer> mSplits;
     String name;
 
+    public Integer getTimelaps() {
+        return timelaps;
+    }
+
+    public void setTimelaps(Integer timelaps) {
+        this.timelaps = timelaps;
+    }
+
+    public ArrayList<Integer> getmSplits() {
+        return mSplits;
+    }
+
+    public void setmSplits(ArrayList<Integer> mSplits) {
+        this.mSplits = mSplits;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Timer(String name) {
         if (name.equals("")){
             name = "name not entered";
         }else{
             this.name = name;
+
         }
     }
 
