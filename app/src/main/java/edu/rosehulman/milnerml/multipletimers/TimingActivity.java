@@ -12,5 +12,7 @@ public class TimingActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timers_layout);
+
+
     }
 }
