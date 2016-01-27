@@ -4,4 +4,8 @@
     <string name="reset_text">Reset</string>
     <string name="option_dialog_title">Options</string>
     <string name="settings_button">Save Settings</string>
+    <string-array name="settings_array">
+        <item>Lap Mode</item>
+        <item>Split Mode</item>
+    </string-array>
 </resources>
