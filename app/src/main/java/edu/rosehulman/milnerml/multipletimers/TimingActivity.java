@@ -104,6 +104,7 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
                     handler.removeCallbacks(updateTimer);
                     time.setText("00:00:00");
                     stoprestart = false;
+                    mTimerAdapter.resetRunners();
                 }else{            // if the clock is going it should just stop
                     butnstart.setText("Start");
                     butnstop.setText("Restart");
@@ -133,7 +134,7 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
             time.setText(currentTime);
             time.setTextColor(Color.WHITE);
             handler.postDelayed(this, 0);
-            mTimerAdapter.updateRunnerCards(currentTime);
+            mTimerAdapter.updateRunnerCards(currentTime,updatedtime);
         }
 
     };
