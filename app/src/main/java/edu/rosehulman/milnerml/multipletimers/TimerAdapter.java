@@ -2,14 +2,10 @@ package edu.rosehulman.milnerml.multipletimers;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.ViewHolder;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.RatingBar;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,7 +16,7 @@ import java.util.ArrayList;
  * Created by kumarms on 1/25/2016.
  */
 public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
-    private ArrayList<Timer> mTimers = new ArrayList<>();
+    private ArrayList<RunnerTime> mTimers = new ArrayList<>();
     private Context mContext;
     private Callback mCallBack;
 
@@ -32,7 +28,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
         this.mCallBack = callback;
     }
 
-    public void add(Timer timer){
+    public void add(RunnerTime timer){
         mTimers.add(timer);
     }
 
@@ -44,13 +40,20 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
 
     @Override
     public void onBindViewHolder(TimerAdapter.TimerView holder, int position) {
-        final Timer mCurrentTimer = mTimers.get(position);
+        final RunnerTime mCurrentTimer = mTimers.get(position);
         holder.nameView.setText(mCurrentTimer.getText());
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener(){
+        mCurrentTimer.setClock(holder.runnerTime);
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-        public boolean onLongClick(View v){
+            public boolean onLongClick(View v) {
                 mCallBack.onEdit(mCurrentTimer);
                 return true;
+            }
+        });
+        holder.stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
             }
         });
     }
@@ -60,23 +63,35 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
         return mTimers.size();
     }
 
-    public void update(Timer timer, String name) {
+    public void update(RunnerTime timer, String name) {
         timer.setName(name);
         notifyDataSetChanged();
     }
 
-    public void remove(Timer timer) {
+    public void remove(RunnerTime timer) {
         mTimers.remove(timer);
+    }
+
+    public void updateRunnerCards(String currentTime) {
+        for (int i = 0; i<mTimers.size(); i++){
+            mTimers.get(i).setClockTime(currentTime);
+        }
     }
 
     public class TimerView extends RecyclerView.ViewHolder {
         private TextView nameView;
+        private Button splitButton;
+        private Button stopButton;
+        private TextView runnerTime;
         public TimerView(View itemView) {
             super(itemView);
             nameView = (TextView)itemView.findViewById(R.id.runner_name);
+            runnerTime = (TextView)itemView.findViewById(R.id.runner_time);
+            splitButton = (Button)itemView.findViewById(R.id.split);
+            stopButton = (Button)itemView.findViewById(R.id.stop);
         }
     }
     public interface Callback {
-        public void onEdit (Timer timer);
+        public void onEdit (RunnerTime timer);
     }
 }

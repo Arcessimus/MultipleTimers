@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <SurfaceView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:id="@+id/surfaceView2"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/runner_name"
+        android:layout_below="@+id/surfaceView2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stop"
+        android:id="@+id/stop"
+        android:layout_alignTop="@+id/runner_name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@android:color/holo_red_dark"
+        android:shadowColor="@android:color/holo_red_light"/>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Split"
+        android:id="@+id/split"
+        android:layout_below="@+id/surfaceView2"
+        android:layout_toLeftOf="@+id/stop"
+        android:layout_toStartOf="@+id/stop" />
+
+    <android.support.v17.leanback.widget.HorizontalGridView
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:id="@+id/gridView"
+        android:layout_below="@+id/stop"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="00:00.000"
+        android:id="@+id/runner_time"
+        android:layout_alignBottom="@+id/runner_name"
+        android:layout_toEndOf="@+id/runner_name" />
+
+</RelativeLayout>

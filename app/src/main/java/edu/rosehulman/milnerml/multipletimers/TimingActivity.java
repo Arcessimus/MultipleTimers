@@ -2,8 +2,9 @@ package edu.rosehulman.milnerml.multipletimers;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.DialogFragment;
@@ -14,13 +15,30 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.os.Handler;
+
+import java.util.Timer;
 
 /**
  * Created by kumarms on 1/25/2016.
  */
-public class TimingActivity extends AppCompatActivity implements TimerAdapter.Callback{
+public class TimingActivity extends AppCompatActivity implements TimerAdapter.Callback {
     private TimerAdapter mTimerAdapter;
     private RecyclerView mRecyclerView;
+
+    public TextView time;
+    public long starttime = 0L;
+    public long timeInMilliseconds = 0L;
+    public long timeSwapBuff = 0L;
+    public long updatedtime = 0L;
+    public int startpause = 1;
+    public int secs = 0;
+    public int mins = 0;
+    public int milliseconds = 0;
+    Handler handler = new Handler();
+    private boolean stoprestart;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -31,7 +49,7 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
         mRecyclerView.setAdapter(mTimerAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);// it isn't importing properly
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);// it isn'startpause importing properly
         Button addingButton = (Button) findViewById(R.id.adding_button);
         addingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,8 +57,89 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
                 showAddEditDialog(null);
             }
         });
+
+        time = (TextView) findViewById(R.id.main_time);
+        final Button butnstart = (Button) findViewById(R.id.main_start);
+        final Button butnstop = (Button) findViewById(R.id.main_stop);
+
+        butnstart.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                if (startpause == 1) {
+                    butnstart.setText("Pause");
+                    butnstop.setText("Stop");
+                    starttime = SystemClock.uptimeMillis();
+                    handler.postDelayed(updateTimer, 0);
+                    startpause = 0;
+                    stoprestart = false;
+                } else {
+                    butnstart.setText("Start");
+                    butnstop.setText("Restart");
+                    time.setTextColor(Color.RED);
+                    timeSwapBuff += timeInMilliseconds;
+                    handler.removeCallbacks(updateTimer);
+                    startpause = 1;
+                    stoprestart = true;
+                }}
+        });
+
+        butnstop.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                if (stoprestart){// if you press restart then reset all values to their original states
+                    starttime = 0L;
+                    timeInMilliseconds = 0L;
+                    timeSwapBuff = 0L;
+                    updatedtime = 0L;
+                    startpause = 1;
+                    secs = 0;
+                    mins = 0;
+                    milliseconds = 0;
+                    butnstart.setText("Start");
+                    butnstop.setText("Restart");
+                    handler.removeCallbacks(updateTimer);
+                    time.setText("00:00:00");
+                    stoprestart = false;
+                }else{            // if the clock is going it should just stop
+                    butnstart.setText("Start");
+                    butnstop.setText("Restart");
+                    time.setTextColor(Color.RED);
+                    timeSwapBuff += timeInMilliseconds;
+                    handler.removeCallbacks(updateTimer);
+                    startpause = 1;
+                    stoprestart = true;
+                }
+
+            }});
     }
-    public void showAddEditDialog(final Timer timer) {
+
+    public Runnable updateTimer = new Runnable() {
+        public void run() {
+
+            timeInMilliseconds = (int) (SystemClock.uptimeMillis() - starttime);
+
+            updatedtime = timeSwapBuff + timeInMilliseconds;
+
+            secs = (int) (updatedtime / 1000);
+            mins = secs / 60;
+            secs = secs % 60;
+            milliseconds = (int) (updatedtime % 1000);
+            String currentTime = "" + mins + ":" + String.format("%02d", secs) + ":"
+                    + String.format("%03d", milliseconds);
+            time.setText(currentTime);
+            time.setTextColor(Color.WHITE);
+            handler.postDelayed(this, 0);
+            mTimerAdapter.updateRunnerCards(currentTime);
+        }
+
+    };
+
+
+    public void showAddEditDialog(final RunnerTime timer) {
         DialogFragment df = new DialogFragment() {
             public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -49,6 +148,7 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
                 View view = getActivity().getLayoutInflater().inflate(R.layout.adding_runner_dialog, null, false);
                 builder.setView(view);
                 final EditText runnerName = (EditText) view.findViewById(R.id.editText);
+                final TextView runnerTime = (TextView)findViewById(R.id.runner_time);
                 if (timer != null) {
                     // pre-populate
                     runnerName.setText(timer.getText());
@@ -79,7 +179,7 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
                     public void onClick(DialogInterface dialog, int which) {
                         if (timer == null) {
                             String name = runnerName.getText().toString();
-                            mTimerAdapter.add(new Timer(name));
+                            mTimerAdapter.add(new RunnerTime(name));
                         }
                     }
                 });
@@ -98,7 +198,11 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
     }
 
     @Override
-    public void onEdit(Timer timer) {
+    public void onEdit(RunnerTime timer) {
         showAddEditDialog(timer);
+    }
+
+    public class CounterClass extends Timer {
+
     }
 }
