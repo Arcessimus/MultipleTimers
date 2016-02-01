@@ -4,11 +4,12 @@
     <string name="reset_text">Reset</string>
     <string name="option_dialog_title">Options</string>
     <string name="settings_button">Save Settings</string>
-    <string name="dialog_add_title">Add a runner</string>
-    <string name="dialog_edit_title">Edit runner profile</string>
-    <string name="delete">delete</string>
-    <string name="add_hint">Enter Name</string>
-    <string name="add_title">Adding another person</string>
-    <string name="name">name</string>
-
+    <string name="edit_button_text">Edit</string>
+    <string name="tutorial_title">Tutorial</string>
+    <string name="about_title">About</string>
+    <string name="about_text">The purpose of this app is to assist coaches and spectators of cross country and track races to take splits of multiple runners at the same time.</string>
+    <string-array name="settings_array">
+        <item>Lap Mode</item>
+        <item>Split Mode</item>
+    </string-array>
 </resources>

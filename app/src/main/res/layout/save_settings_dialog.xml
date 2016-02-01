@@ -6,24 +6,23 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/about_title"
-        android:id="@+id/textView3"
-        android:layout_gravity="center_horizontal" />
+        android:text="@string/confirmation_text"
+        android:id="@+id/confirmation_text"
+        android:layout_gravity="center_horizontal"
+        android:textSize="25dp"
+        android:textAlignment="center"/>
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/about_text"
-        android:id="@+id/textView4"
+        android:text="@string/save_text"
+        android:id="@+id/confirmation_button"
         android:layout_gravity="center_horizontal" />
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/tutorial_title"
-        android:id="@+id/textView5"
+        android:text="@string/cancel_text"
+        android:id="@+id/cancel_button"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
