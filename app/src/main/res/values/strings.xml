@@ -11,6 +11,8 @@
     <string name="add_title">Add a runner</string>
     <string name="name">Name</string>
     <string name="add_hint">Enter Name</string>
+    <string name="confirmation_text">Are you sure</string>
+    <string name="cancel_text">cancel</string>
     <string-array name="settings_array">
         <item>Lap Mode</item>
         <item>Split Mode</item>
