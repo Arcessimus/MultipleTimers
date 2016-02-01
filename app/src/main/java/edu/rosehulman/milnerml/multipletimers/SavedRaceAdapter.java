@@ -21,7 +21,7 @@ public class SavedRaceAdapter extends RecyclerView.Adapter<SavedRaceAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.mSaveName.setText("something something blah something");
     }
 
     @Override
