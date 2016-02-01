@@ -8,6 +8,9 @@
     <string name="tutorial_title">Tutorial</string>
     <string name="about_title">About</string>
     <string name="about_text">The purpose of this app is to assist coaches and spectators of cross country and track races to take splits of multiple runners at the same time.</string>
+    <string name="add_title">Add a runner</string>
+    <string name="name">Name</string>
+    <string name="add_hint">Enter Name</string>
     <string-array name="settings_array">
         <item>Lap Mode</item>
         <item>Split Mode</item>
