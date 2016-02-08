@@ -10,48 +10,63 @@ import java.util.ArrayList;
  */
 public class RaceStorage {
 
-    ArrayList<File> fileList;
+    ArrayList<RunnerTime> runnerTimes;
+    File racesFile;
     Context context;
 
     public RaceStorage(Context thisContext)
     {
-        this.fileList = new ArrayList<>();
+        this.runnerTimes = new ArrayList<>();
         this.context = thisContext;
+        this.racesFile = new File(this.context.getFilesDir(), "Races");
     }
 
     public void saveRace(RunnerTime r)
     {
-        //serialize into JSON
+        //add to list
+        this.runnerTimes.add(r);
+        //refresh file
+        refreshFile();
 
-        //open file
-        //File file = new File(this.context.getFilesDir(), name);
-
-        //write JSON to file
-
-        //add file to arraylist
-        //this.fileList.add(file);
-
-        //close file
     }
 
-    public void loadRace(File r)
+    public void loadRaces()
     {
         //open file
 
         //extract JSON from file
 
-        //deserialize JSON into RunnerTime object
+        //close file
+
+        //deserialize JSON into list of RunnerTime objects
     }
 
-    public void deleteRace()
+    public void deleteRace(int pos)
     {
-        //delete file
-
-        //delete RunnerTime object from list
+        //remove at position
+        this.runnerTimes.remove(pos);
+        //refresh file
+        refreshFile();
     }
 
-    public File getFileatPos(int pos)
+    public void deleteRace(RunnerTime r)
     {
-        return fileList.get(pos);
+        //remove the selected object
+        this.runnerTimes.remove(r);
+        //refresh file
+        refreshFile();
+    }
+
+    private void refreshFile()
+    {
+        //serialize list into JSON
+
+        //open file
+
+        //clear file
+
+        //write JSON list to file
+
+        //close file
     }
 }
