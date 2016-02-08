@@ -1,6 +1,8 @@
 package edu.rosehulman.milnerml.multipletimers;
 
 import android.content.Context;
+import android.support.v17.leanback.widget.HorizontalGridView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,6 +65,10 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
                 mCurrentTimer.setSplit(true);
             }
         });
+        SplitsAdapter adapter = new SplitsAdapter();
+        mCurrentTimer.setAdapter(adapter);
+        holder.horizontalGridView.setAdapter(adapter);
+        holder.horizontalGridView.setLayoutManager(new LinearLayoutManager(mContext));
     }
 
     @Override
@@ -88,7 +94,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
             }
             if (currentRunner.isSplit()){
                 currentRunner.setSplit(false);
-                String splitForLog = currentRunner.addSplit(updatedTime);
+                String splitForLog = currentRunner.addSplit(updatedTime, currentTime);
                 currentRunner.addTotalSplits(currentTime);
                 Log.d("Splits:","total time: " + currentTime + " |split: " + splitForLog);
             }
@@ -111,6 +117,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
         private Button splitButton;
         private Button stopButton;
         private TextView runnerTime;
+        private HorizontalGridView horizontalGridView;
 
         public TimerView(View itemView) {
             super(itemView);
@@ -118,6 +125,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
             runnerTime = (TextView) itemView.findViewById(R.id.runner_time);
             splitButton = (Button) itemView.findViewById(R.id.split);
             stopButton = (Button) itemView.findViewById(R.id.stop);
+            horizontalGridView = (HorizontalGridView) itemView.findViewById(R.id.gridView);
         }
     }
 

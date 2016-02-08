@@ -20,6 +20,7 @@ public class RunnerTime {
     long updatedTime = 0;
 
     private boolean clockStopped = false;
+    public SplitsAdapter adapter;
 
     public Integer getTimelaps() {
         return timelaps;
@@ -83,7 +84,7 @@ public class RunnerTime {
         this.split = split;
     }
 
-    public String addSplit(long updatedtime) {
+    public String addSplit(long updatedtime, String currentTotalTime) {
         long updatedtimetemp = updatedtime;
         updatedtime = updatedtime - updatedTime;
         updatedTime = updatedtimetemp;
@@ -94,6 +95,7 @@ public class RunnerTime {
         String currentTime = "" + mins + ":" + String.format("%02d", secs) + ":"
                 + String.format("%03d", milliseconds);
         mSplits.add(currentTime);
+        adapter.addSplits(currentTime, currentTotalTime);
         return currentTime;
     }
 
@@ -101,4 +103,7 @@ public class RunnerTime {
         mTotalTimesSplits.add(currentTime);
     }
 
+    public void setAdapter(SplitsAdapter adapter) {
+        this.adapter = adapter;
+    }
 }
