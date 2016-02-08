@@ -13,6 +13,9 @@
     <string name="add_hint">Enter Name</string>
     <string name="confirmation_text">Are you sure</string>
     <string name="cancel_text">cancel</string>
+    <string name="dialog_add_title">Add a Runner</string>
+    <string name="dialog_edit_title">Edit Runner</string>
+    <string name="delete">delete</string>
     <string-array name="settings_array">
         <item>Lap Mode</item>
         <item>Split Mode</item>
