@@ -1,6 +1,8 @@
 package edu.rosehulman.milnerml.multipletimers;
 
+import android.support.v17.leanback.widget.HorizontalGridView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +14,9 @@ import java.util.ArrayList;
  * Created by kumarms on 2/8/2016.
  */
 public class SplitsAdapter extends RecyclerView.Adapter<SplitsAdapter.SplitView> {
-    private ArrayList<String> mSplits;
-    private ArrayList<String> mTotalTimesSplits;
-
+    private ArrayList<Split> mSplits;
     public SplitsAdapter() {
         this.mSplits = new ArrayList<>();
-        this.mTotalTimesSplits = new ArrayList<>();
     }
 
     @Override
@@ -28,20 +27,20 @@ public class SplitsAdapter extends RecyclerView.Adapter<SplitsAdapter.SplitView>
 
     @Override
     public void onBindViewHolder(SplitView holder, int position) {
-        String split = mSplits.get(position);
-        holder.splits.setText(split);
-        String totalSplit = mTotalTimesSplits.get(position);
-        holder.totalSplits.setText(totalSplit);
+        Split split = mSplits.get(position);
+        holder.splits.setText(split.getSplit());
+        holder.totalSplits.setText(split.getTotal());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mSplits.size();
     }
 
     public void addSplits(String currentTime, String currentTotalTime) {
-        mSplits.add(currentTime);
-        mTotalTimesSplits.add(currentTotalTime);
+        mSplits.add(0, new Split(currentTime,currentTotalTime));
+        Log.d("splits:", "made it to adapter");
+        notifyDataSetChanged();
     }
 
     public class SplitView extends RecyclerView.ViewHolder {

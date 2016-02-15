@@ -1,5 +1,7 @@
 package edu.rosehulman.milnerml.multipletimers;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by kumarms on 1/25/2016.
  */
-public class RunnerTime {
+public class RunnerTime implements Parcelable{
     private TextView clock;
     Integer timelaps;
     ArrayList<String> mSplits;
@@ -21,6 +23,30 @@ public class RunnerTime {
 
     private boolean clockStopped = false;
     public SplitsAdapter adapter;
+
+    protected RunnerTime(Parcel in) {
+        mSplits = in.createStringArrayList();
+        mTotalTimesSplits = in.createStringArrayList();
+        name = in.readString();
+        split = in.readByte() != 0;
+        mins = in.readInt();
+        secs = in.readInt();
+        milliseconds = in.readInt();
+        updatedTime = in.readLong();
+        clockStopped = in.readByte() != 0;
+    }
+
+    public static final Creator<RunnerTime> CREATOR = new Creator<RunnerTime>() {
+        @Override
+        public RunnerTime createFromParcel(Parcel in) {
+            return new RunnerTime(in);
+        }
+
+        @Override
+        public RunnerTime[] newArray(int size) {
+            return new RunnerTime[size];
+        }
+    };
 
     public Integer getTimelaps() {
         return timelaps;
@@ -50,6 +76,7 @@ public class RunnerTime {
         }
         mSplits = new ArrayList<>();
         mTotalTimesSplits = new ArrayList<>();
+        adapter = new SplitsAdapter();
     }
 
     public void setClock(TextView clock) {
@@ -105,5 +132,27 @@ public class RunnerTime {
 
     public void setAdapter(SplitsAdapter adapter) {
         this.adapter = adapter;
+    }
+
+    public SplitsAdapter getAdapter() {
+        return adapter;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeStringList(mSplits);
+        dest.writeStringList(mTotalTimesSplits);
+        dest.writeString(name);
+        dest.writeByte((byte) (split ? 1 : 0));
+        dest.writeInt(mins);
+        dest.writeInt(secs);
+        dest.writeInt(milliseconds);
+        dest.writeLong(updatedTime);
+        dest.writeByte((byte) (clockStopped ? 1 : 0));
     }
 }

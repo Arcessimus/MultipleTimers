@@ -23,6 +23,10 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
     private Context mContext;
     private Callback mCallBack;
 
+    public ArrayList<RunnerTime> getmTimers() {
+        return mTimers;
+    }
+
     public TimerAdapter() {
     }
 
@@ -46,6 +50,8 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
         final RunnerTime mCurrentTimer = mTimers.get(position);
         holder.nameView.setText(mCurrentTimer.getText());
         mCurrentTimer.setClock(holder.runnerTime);
+        holder.horizontalGridView.setAdapter(mCurrentTimer.getAdapter());
+        holder.horizontalGridView.setLayoutManager(new LinearLayoutManager(mContext));
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {// on long click
             @Override
             public boolean onLongClick(View v) {
@@ -65,10 +71,6 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
                 mCurrentTimer.setSplit(true);
             }
         });
-        SplitsAdapter adapter = new SplitsAdapter();
-        mCurrentTimer.setAdapter(adapter);
-        holder.horizontalGridView.setAdapter(adapter);
-        holder.horizontalGridView.setLayoutManager(new LinearLayoutManager(mContext));
     }
 
     @Override
@@ -117,7 +119,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
         private Button splitButton;
         private Button stopButton;
         private TextView runnerTime;
-        private HorizontalGridView horizontalGridView;
+        private RecyclerView horizontalGridView;
 
         public TimerView(View itemView) {
             super(itemView);
@@ -125,7 +127,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
             runnerTime = (TextView) itemView.findViewById(R.id.runner_time);
             splitButton = (Button) itemView.findViewById(R.id.split);
             stopButton = (Button) itemView.findViewById(R.id.stop);
-            horizontalGridView = (HorizontalGridView) itemView.findViewById(R.id.gridView);
+            horizontalGridView = (RecyclerView) itemView.findViewById(R.id.gridView);
         }
     }
 

@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.os.Handler;
 
+import java.util.ArrayList;
 import java.util.Timer;
 
 /**
@@ -38,6 +39,7 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
     public int milliseconds = 0;
     Handler handler = new Handler();
     private boolean stoprestart;
+    private ArrayList<RunnerTime> runnerCards;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -114,9 +116,29 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
                     startpause = 1;
                     stoprestart = true;
                 }
-
             }});
+        if (savedInstanceState != null){
+
+        }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        int count = mTimerAdapter.getmTimers().size();
+        for (int i = 0; i<count; i++){
+            runnerCards.add(mTimerAdapter.getmTimers().get(i));
+            for (int j = 0; j<mTimerAdapter.getmTimers().get(i).getAdapter().getItemCount();j++){
+
+            }
+        }
+        outState.putParcelableArrayList("mRunners", runnerCards);
+        outState.putInt("count",count);
+        // Save off data using outState.putXX(key, value)
+        // Hint: you will use the appropriate methods to store int[] and ints,
+        // maybe a String.
+    }
+
 
     public Runnable updateTimer = new Runnable() {
         public void run() {
