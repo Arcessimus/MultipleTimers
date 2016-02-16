@@ -11,25 +11,18 @@
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.06" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Restart"
-        android:id="@+id/main_stop"
-        android:shadowColor="@android:color/holo_red_light"
-        android:background="@android:color/holo_red_dark"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/textView" />
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="    Main Timer:"
+        android:textAlignment="center"
         android:id="@+id/textView"
-        android:layout_marginStart="72dp"
+        android:textColor="#FF0000"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
     <Button
@@ -60,13 +53,25 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/main_stop" />
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Restart"
+        android:id="@+id/main_stop"
+        android:shadowColor="@android:color/holo_red_light"
+        android:background="@android:color/holo_red_dark"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/main_time" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
+        android:text="00:00:00"
         android:id="@+id/main_time"
+        android:textColor="#FF0000"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/textView" />
     <!--<android.support.design.widget.FloatingActionButton-->
