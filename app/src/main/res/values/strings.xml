@@ -20,5 +20,6 @@
     <string-array name="settings_array">
         <item>Lap Mode</item>
         <item>Split Mode</item>
+        <item>Both</item>
     </string-array>
 </resources>
