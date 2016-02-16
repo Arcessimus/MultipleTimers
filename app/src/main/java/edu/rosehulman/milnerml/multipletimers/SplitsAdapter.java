@@ -15,8 +15,10 @@ import java.util.ArrayList;
  */
 public class SplitsAdapter extends RecyclerView.Adapter<SplitsAdapter.SplitView> {
     private ArrayList<Split> mSplits;
-    public SplitsAdapter() {
+    private int choice;
+    public SplitsAdapter(int choice) {
         this.mSplits = new ArrayList<>();
+        this.choice = choice;
     }
 
     @Override
@@ -28,8 +30,22 @@ public class SplitsAdapter extends RecyclerView.Adapter<SplitsAdapter.SplitView>
     @Override
     public void onBindViewHolder(SplitView holder, int position) {
         Split split = mSplits.get(position);
-        holder.splits.setText(split.getSplit());
-        holder.totalSplits.setText(split.getTotal());
+        if (choice == 1){
+            holder.splits.setText(split.getSplit());
+            holder.totalSplits.setText(split.getTotal());
+            holder.splitNumber.setText("" + position);
+        }else if(choice == 2) {// only splits
+            holder.totalSplits.setText("");
+            holder.totalText.setText("");
+            holder.splits.setText(split.getSplit());
+            holder.splitNumber.setText("" + position);
+        }else if(choice == 3) {// only totals
+            holder.splits.setText("");
+            holder.splitsText.setText("");
+            holder.totalSplits.setText(split.getTotal());
+            holder.splitNumber.setText("" + position);
+        }
+
     }
 
     @Override
@@ -38,7 +54,7 @@ public class SplitsAdapter extends RecyclerView.Adapter<SplitsAdapter.SplitView>
     }
 
     public void addSplits(String currentTime, String currentTotalTime) {
-        mSplits.add(0, new Split(currentTime,currentTotalTime));
+        mSplits.add(new Split(currentTime,currentTotalTime));
         Log.d("splits:", "made it to adapter");
         notifyDataSetChanged();
     }
@@ -46,10 +62,16 @@ public class SplitsAdapter extends RecyclerView.Adapter<SplitsAdapter.SplitView>
     public class SplitView extends RecyclerView.ViewHolder {
         TextView splits;
         TextView totalSplits;
+        TextView totalText;
+        TextView splitsText;
+        TextView splitNumber;
         public SplitView(View itemView) {
             super(itemView);
             splits = (TextView) itemView.findViewById(R.id.split_time_split);
             totalSplits = (TextView) itemView.findViewById(R.id.split_time_total);
+            totalText = (TextView) itemView.findViewById(R.id.total_split);
+            splitsText = (TextView) itemView.findViewById(R.id.split_split);
+            splitNumber = (TextView) itemView.findViewById(R.id.split_number);
         }
     }
 }

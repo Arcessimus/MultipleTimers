@@ -16,6 +16,7 @@
     <string name="dialog_add_title">Add a Runner</string>
     <string name="dialog_edit_title">Edit Runner</string>
     <string name="delete">delete</string>
+    <string name="lap_number">Lap #</string>
     <string-array name="settings_array">
         <item>Lap Mode</item>
         <item>Split Mode</item>

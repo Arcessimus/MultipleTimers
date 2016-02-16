@@ -41,6 +41,7 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
     Handler handler = new Handler();
     private boolean stoprestart;
     private ArrayList<Parcelable> runnerCards = new ArrayList<>();
+    private int choiceSetting = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -229,14 +230,14 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
 
     @Override
     public void launchReviewDialogCallback(RunnerTime mCurrentTimer) {
-        launchReviewDialog(mCurrentTimer);
+        launchReviewDialog(mCurrentTimer,choiceSetting);
     }
 
 
     public class CounterClass extends Timer {
 
     }
-    private void launchReviewDialog(final RunnerTime runner) {
+    private void launchReviewDialog(final RunnerTime runner, final int choice) {
         DialogFragment df = new DialogFragment() {
             public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -244,10 +245,10 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
                 builder.setTitle(runner.getName() + "'s Splits");
                 View view = getActivity().getLayoutInflater().inflate(R.layout.splits_dialog_layout, null, false);
                 builder.setView(view);
-                final TextView runnerName = (TextView) view.findViewById(R.id.runner_name_for_dialog);
-                runnerName.setText(runner.getName());
+                final TextView lap = (TextView) view.findViewById(R.id.runner_name_for_dialog);
+                lap.setText(R.string.lap_number);
                 RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.splits_recycler_view);
-                SplitsAdapter adapter = new SplitsAdapter();
+                SplitsAdapter adapter = new SplitsAdapter(choice);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
                 for (int i = 0; i < runner.getmSplits().size(); i++){
