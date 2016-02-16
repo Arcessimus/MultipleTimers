@@ -5,6 +5,10 @@ import android.os.Parcelable;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 /**
@@ -181,5 +185,62 @@ public class RunnerTime implements Parcelable{
         dest.writeInt(milliseconds);
         dest.writeLong(updatedTime);
         dest.writeByte((byte) (clockStopped ? 1 : 0));
+    }
+
+    public JSONObject toJSON()
+    {
+        JSONObject obj = new JSONObject();
+
+        try {
+            obj.put("clock", clock.getText());
+            obj.put("timelaps", timelaps);
+            obj.put("splits", mSplits.toArray());
+            obj.put("total_time_splits", mTotalTimesSplits.toArray());
+            obj.put("name", name);
+            obj.put("split", split);
+            obj.put("mins",mins);
+            obj.put("secs", secs);
+            obj.put("milliseconds", milliseconds);
+            obj.put("updatedTime", updatedTime);
+            obj.put("lastSplit", lastSplit);
+            obj.put("clockStopped", clockStopped);
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+
+        return obj;
+    }
+
+    public void toObjFromJSON(JSONObject obj)
+    {
+        try {
+            clock.setText(obj.getString("clock"));
+            timelaps = obj.getInt("timelaps");
+            name = obj.getString("name");
+            split = obj.getBoolean("split");
+            mins = obj.getInt("mins");
+            secs = obj.getInt("secs");
+            milliseconds = obj.getInt("milliseconds");
+            updatedTime = obj.getLong("updatedTime");
+            lastSplit = obj.getString("lastSplit");
+            clockStopped = obj.getBoolean("clockStopped");
+
+            JSONArray splitsArray = obj.getJSONArray("splits");
+            JSONArray totalSplitsArray = obj.getJSONArray("total_time_splits");
+
+            mSplits = new ArrayList<>();
+            for (int i = 0; i < splitsArray.length(); i++)
+                mSplits.add(splitsArray.getString(i));
+
+            mTotalTimesSplits = new ArrayList<>();
+            for(int j = 0; j < totalSplitsArray.length(); j++)
+                mTotalTimesSplits.add(totalSplitsArray.getString(j));
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
