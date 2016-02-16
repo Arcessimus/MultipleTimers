@@ -7,23 +7,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="total time"
-        android:id="@+id/total_split" />
+        android:id="@+id/total_split"
+        android:layout_alignTop="@+id/split_split"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:textStyle="bold"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="00:00:00"
         android:id="@+id/split_time_total"
-        android:layout_alignTop="@+id/split_time_split"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/total_split"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="split time"
         android:id="@+id/split_split"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/space"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -31,5 +38,16 @@
         android:text="00:00:00"
         android:id="@+id/split_time_split"
         android:layout_below="@+id/split_split"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignStart="@+id/split_split"
+        android:layout_marginRight="20dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50px"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/space" />
+
+
+
 </RelativeLayout>

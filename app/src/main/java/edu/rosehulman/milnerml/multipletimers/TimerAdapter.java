@@ -1,14 +1,22 @@
 package edu.rosehulman.milnerml.multipletimers;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.v17.leanback.widget.HorizontalGridView;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -46,12 +54,20 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
     }
 
     @Override
-    public void onBindViewHolder(TimerAdapter.TimerView holder, int position) {
+    public void onBindViewHolder(final TimerAdapter.TimerView holder, int position) {
         final RunnerTime mCurrentTimer = mTimers.get(position);
-        holder.nameView.setText(mCurrentTimer.getText());
+        holder.nameView.setText(mCurrentTimer.getName());
         mCurrentTimer.setClock(holder.runnerTime);
-        holder.horizontalGridView.setAdapter(mCurrentTimer.getAdapter());
-        holder.horizontalGridView.setLayoutManager(new LinearLayoutManager(mContext));
+        mCurrentTimer.setLastSplitsButton(holder.splitsReviewButton);
+//        holder.horizontalGridView.setAdapter(mCurrentTimer.getAdapter());
+//        holder.horizontalGridView.setLayoutManager(new LinearLayoutManager(mContext));
+        holder.splitsReviewButton.setText(mCurrentTimer.getLastSplit());
+        holder.splitsReviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCallBack.launchReviewDialogCallback(mCurrentTimer);
+            }
+        });
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {// on long click
             @Override
             public boolean onLongClick(View v) {
@@ -62,6 +78,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
         holder.stopButton.setOnClickListener(new View.OnClickListener() {// on stop button click
             @Override
             public void onClick(View v) {
+                mCurrentTimer.setSplit(true);
                 mCurrentTimer.setClockStopped(true);
             }
         });
@@ -72,6 +89,8 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
             }
         });
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -98,6 +117,8 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
                 currentRunner.setSplit(false);
                 String splitForLog = currentRunner.addSplit(updatedTime, currentTime);
                 currentRunner.addTotalSplits(currentTime);
+                currentRunner.setLastSplit(splitForLog);
+                currentRunner.getLastSplitsButton().setText(currentRunner.getLastSplit());
                 Log.d("Splits:","total time: " + currentTime + " |split: " + splitForLog);
             }
         }
@@ -108,18 +129,20 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
         for (int i = 0; i < mTimers.size(); i++) {
             currentRunner = mTimers.get(i);
             currentRunner.setClockTime("00:00:00");
+            currentRunner.setUpdatedTime(0);
             currentRunner.setClockStopped(false);
+            currentRunner.getmSplits().clear();currentRunner.getmTotalTimesSplits().clear();// clear the splits
+            currentRunner.setLastSplit("00:00.000");
+            currentRunner.getLastSplitsButton().setText(currentRunner.getLastSplit());
         }
     }
-
-
 
     public class TimerView extends RecyclerView.ViewHolder {
         private TextView nameView;
         private Button splitButton;
         private Button stopButton;
         private TextView runnerTime;
-        private RecyclerView horizontalGridView;
+        private Button splitsReviewButton;
 
         public TimerView(View itemView) {
             super(itemView);
@@ -127,11 +150,13 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
             runnerTime = (TextView) itemView.findViewById(R.id.runner_time);
             splitButton = (Button) itemView.findViewById(R.id.split);
             stopButton = (Button) itemView.findViewById(R.id.stop);
-            horizontalGridView = (RecyclerView) itemView.findViewById(R.id.gridView);
+            splitsReviewButton = (Button) itemView.findViewById(R.id.review_splits);
         }
     }
 
     public interface Callback {
         public void onEdit(RunnerTime timer);
+
+        void launchReviewDialogCallback(RunnerTime mCurrentTimer);
     }
 }

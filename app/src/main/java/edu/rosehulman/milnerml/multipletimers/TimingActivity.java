@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -39,7 +40,7 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
     public int milliseconds = 0;
     Handler handler = new Handler();
     private boolean stoprestart;
-    private ArrayList<RunnerTime> runnerCards;
+    private ArrayList<Parcelable> runnerCards = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -118,7 +119,11 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
                 }
             }});
         if (savedInstanceState != null){
-
+            runnerCards = savedInstanceState.getParcelableArrayList("mRunners");
+            int count = savedInstanceState.getInt("count");
+            for (int i = 0; i<count; i++){
+                mTimerAdapter.add((RunnerTime) runnerCards.get(i));
+            }
         }
     }
 
@@ -128,12 +133,9 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
         int count = mTimerAdapter.getmTimers().size();
         for (int i = 0; i<count; i++){
             runnerCards.add(mTimerAdapter.getmTimers().get(i));
-            for (int j = 0; j<mTimerAdapter.getmTimers().get(i).getAdapter().getItemCount();j++){
-
-            }
         }
         outState.putParcelableArrayList("mRunners", runnerCards);
-        outState.putInt("count",count);
+        outState.putInt("count", count);
         // Save off data using outState.putXX(key, value)
         // Hint: you will use the appropriate methods to store int[] and ints,
         // maybe a String.
@@ -174,7 +176,7 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
                 final TextView runnerTime = (TextView)findViewById(R.id.runner_time);
                 if (timer != null) {
                     // pre-populate
-                    runnerName.setText(timer.getText());
+                    runnerName.setText(timer.getName());
 
                     TextWatcher textWatcher = new TextWatcher() {
                         @Override
@@ -225,7 +227,52 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
         showAddEditDialog(timer);
     }
 
+    @Override
+    public void launchReviewDialogCallback(RunnerTime mCurrentTimer) {
+        launchReviewDialog(mCurrentTimer);
+    }
+
+
     public class CounterClass extends Timer {
 
+    }
+    private void launchReviewDialog(final RunnerTime runner) {
+        DialogFragment df = new DialogFragment() {
+            public Dialog onCreateDialog(Bundle savedInstanceState) {
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle(runner.getName() + "'s Splits");
+                View view = getActivity().getLayoutInflater().inflate(R.layout.splits_dialog_layout, null, false);
+                builder.setView(view);
+                final TextView runnerName = (TextView) view.findViewById(R.id.runner_name_for_dialog);
+                runnerName.setText(runner.getName());
+                RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.splits_recycler_view);
+                SplitsAdapter adapter = new SplitsAdapter();
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+                for (int i = 0; i < runner.getmSplits().size(); i++){
+                    adapter.addSplits(runner.getmSplits().get(i),runner.getmTotalTimesSplits().get(i));
+                }
+//                builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        if (timer == null) {
+//                            String name = runnerName.getText().toString();
+//                            mTimerAdapter.add(new RunnerTime(name));
+//                        }
+//                    }
+//                });
+//                builder.setNeutralButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        mTimerAdapter.remove(timer);
+//                    }
+//                });
+                builder.setNegativeButton(android.R.string.ok, null);// just need one button to exit
+
+                return builder.create();
+            }
+        };
+        df.show(getSupportFragmentManager(), "add");
     }
 }

@@ -2,6 +2,7 @@ package edu.rosehulman.milnerml.multipletimers;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -10,6 +11,16 @@ import java.util.ArrayList;
  * Created by kumarms on 1/25/2016.
  */
 public class RunnerTime implements Parcelable{
+    private Button lastSplitsButton;
+
+    public Button getLastSplitsButton() {
+        return lastSplitsButton;
+    }
+
+    public void setLastSplitsButton(Button lastSplitsButton) {
+        this.lastSplitsButton = lastSplitsButton;
+    }
+
     private TextView clock;
     Integer timelaps;
     ArrayList<String> mSplits;
@@ -19,10 +30,16 @@ public class RunnerTime implements Parcelable{
     int mins = 0;
     int secs = 0;
     int milliseconds = 0;
+
+    public void setUpdatedTime(long updatedTime) {
+        this.updatedTime = updatedTime;
+    }
+
     long updatedTime = 0;
+    private String lastSplit;
 
     private boolean clockStopped = false;
-    public SplitsAdapter adapter;
+//    public SplitsAdapter adapter; removing for simplicity
 
     protected RunnerTime(Parcel in) {
         mSplits = in.createStringArrayList();
@@ -68,6 +85,14 @@ public class RunnerTime implements Parcelable{
         this.name = name;
     }
 
+    public String getLastSplit() {
+        return lastSplit;
+    }
+
+    public void setLastSplit(String lastSplit) {
+        this.lastSplit = "lastSplit: " + lastSplit;
+    }
+
     public RunnerTime(String name) {
         if (name.equals("")){
             name = "name not entered";
@@ -76,7 +101,13 @@ public class RunnerTime implements Parcelable{
         }
         mSplits = new ArrayList<>();
         mTotalTimesSplits = new ArrayList<>();
-        adapter = new SplitsAdapter();
+
+        lastSplit = "00:00.000";
+//        adapter = new SplitsAdapter();
+    }
+
+    public ArrayList<String> getmTotalTimesSplits() {
+        return mTotalTimesSplits;
     }
 
     public void setClock(TextView clock) {
@@ -85,10 +116,6 @@ public class RunnerTime implements Parcelable{
 
     public RunnerTime() {
         this.name = "name not entered";
-    }
-
-    public String getText() {
-        return name;
     }
 
     public void setClockTime(String clockTime) {
@@ -122,7 +149,7 @@ public class RunnerTime implements Parcelable{
         String currentTime = "" + mins + ":" + String.format("%02d", secs) + ":"
                 + String.format("%03d", milliseconds);
         mSplits.add(currentTime);
-        adapter.addSplits(currentTime, currentTotalTime);
+//        adapter.addSplits(currentTime, currentTotalTime);
         return currentTime;
     }
 
@@ -130,13 +157,13 @@ public class RunnerTime implements Parcelable{
         mTotalTimesSplits.add(currentTime);
     }
 
-    public void setAdapter(SplitsAdapter adapter) {
-        this.adapter = adapter;
-    }
-
-    public SplitsAdapter getAdapter() {
-        return adapter;
-    }
+//    public void setAdapter(SplitsAdapter adapter) {
+//        this.adapter = adapter;
+//    }
+//
+//    public SplitsAdapter getAdapter() {
+//        return adapter;
+//    }
 
     @Override
     public int describeContents() {

@@ -17,12 +17,11 @@
         android:layout_height="wrap_content"
         android:text="Restart"
         android:id="@+id/main_stop"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/surfaceView"
         android:shadowColor="@android:color/holo_red_light"
-        android:background="@android:color/holo_red_dark"/>
+        android:background="@android:color/holo_red_dark"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,23 +29,24 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="    Main Timer:"
         android:id="@+id/textView"
+        android:layout_marginStart="72dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:id="@+id/adding_button"
-        android:layout_below="@+id/textView"
-        />
+        android:layout_below="@+id/surfaceView"
+        android:layout_alignParentStart="true" />
     <android.support.v7.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/adding_button"
         android:id="@+id/recycer_view"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/main_start"
+        android:layout_alignEnd="@+id/main_stop">
     </android.support.v7.widget.RecyclerView>
 
     <Button
@@ -55,11 +55,11 @@
         android:layout_height="wrap_content"
         android:text="Start"
         android:id="@+id/main_start"
-        android:layout_alignBottom="@+id/surfaceView"
-        android:layout_toLeftOf="@+id/main_stop"
-        android:layout_toStartOf="@+id/main_stop"
         android:shadowColor="@android:color/holo_green_light"
-        android:background="@android:color/holo_green_dark"/>
+        android:background="@android:color/holo_green_dark"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/main_stop" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,7 +68,6 @@
         android:text="Medium Text"
         android:id="@+id/main_time"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/textView"
         android:layout_toEndOf="@+id/textView" />
     <!--<android.support.design.widget.FloatingActionButton-->
         <!--android:id="@+id/fab"-->
