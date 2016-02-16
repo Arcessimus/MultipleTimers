@@ -1,7 +1,9 @@
 package edu.rosehulman.milnerml.multipletimers;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -46,6 +48,11 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
+        int choiceTemp = sharedPreferences.getInt(getString(R.string.choice), 1);
+        if (choiceTemp != 0){
+            choiceSetting = choiceTemp;
+        }
         setContentView(R.layout.timers_layout);
 
         mTimerAdapter = new TimerAdapter(this,(TimerAdapter.Callback)this);
