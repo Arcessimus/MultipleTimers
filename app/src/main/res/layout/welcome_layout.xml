@@ -16,18 +16,9 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Saved Races"
-        android:id="@+id/saved_races"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/start_timing"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="About/Tutorial"
         android:id="@+id/about_tutorial"
-        android:layout_below="@+id/saved_races"
+        android:layout_below="@+id/start_timing"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp" />
 
@@ -48,4 +39,14 @@
         android:layout_marginTop="125dp"
         android:layout_below="@+id/welcome_text"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saved Races"
+        android:id="@+id/saved_races"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/settings"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
 </RelativeLayout>

@@ -25,8 +25,8 @@
     <string name="runner_card_tutorial">Long click the runner’s name to edit or delete the runner.\n\nPress split to take the split of the runner.\n\nPress stop to end the timer on the runner and take the final split.\n\nPress the button that says last split to review the splits taken for the runner.</string>
     <string name="are_you_sure">Are you sure?</string>
     <string-array name="settings_array">
-        <item>Lap Mode</item>
-        <item>Split Mode</item>
+        <item>Total Split</item>
+        <item>Lap Split</item>
         <item>Both</item>
     </string-array>
 </resources>

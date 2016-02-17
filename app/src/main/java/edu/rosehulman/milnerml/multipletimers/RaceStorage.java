@@ -2,7 +2,10 @@ package edu.rosehulman.milnerml.multipletimers;
 
 import android.content.Context;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -19,7 +22,7 @@ public class RaceStorage {
     {
         this.runnerTimes = new ArrayList<>();
         this.context = thisContext;
-        this.racesFile = new File(this.context.getFilesDir(), "Races");
+        this.racesFile = new File(this.context.getFilesDir(), "Races.txt");
     }
 
     public void saveRace(RunnerTime r)
@@ -33,8 +36,22 @@ public class RaceStorage {
 
     public void loadRaces()
     {
-        //open file
+        //read from file
+        StringBuilder text = new StringBuilder();
 
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(this.racesFile));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                text.append(line);
+                text.append('\n');
+            }
+            br.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
         //extract JSON from file
 
         //close file
