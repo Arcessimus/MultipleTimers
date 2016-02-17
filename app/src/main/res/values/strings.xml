@@ -18,6 +18,12 @@
     <string name="delete">delete</string>
     <string name="lap_number">Lap #</string>
     <string name="choice">choice</string>
+    <string name="start_tutorial">Press the start button to start or continue the main timer.</string>
+    <string name="stop_restart_tutorial">Press pause or stop to pause the timer.</string>
+    <string name="main_restart_tutorial_text">Press restart to restart the timer.</string>
+    <string name="fab_tutorial">Press the add button located in the bottom left to add a runner.</string>
+    <string name="runner_card_tutorial">Long click the runner’s name to edit or delete the runner.\n\nPress split to take the split of the runner.\n\nPress stop to end the timer on the runner and take the final split.\n\nPress the button that says last split to review the splits taken for the runner.</string>
+    <string name="are_you_sure">Are you sure?</string>
     <string-array name="settings_array">
         <item>Lap Mode</item>
         <item>Split Mode</item>

@@ -3,45 +3,201 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/about_title"
-        android:id="@+id/textView3"
-        android:layout_gravity="center_horizontal" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/about_text"
-        android:id="@+id/textView4"
-        android:layout_gravity="center_horizontal" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/tutorial_title"
-        android:id="@+id/textView5"
-        android:layout_gravity="center_horizontal" />
-
-    <LinearLayout
-        android:orientation="horizontal"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"></LinearLayout>
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:layout_gravity="center_horizontal" >
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"></LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/about_title"
+                android:id="@+id/textView3"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"></LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/about_text"
+                android:id="@+id/textView4"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/tutorial_title"
+                android:id="@+id/textView5"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Start"
+                android:id="@+id/main_start_tutorial"
+                android:shadowColor="@android:color/holo_green_light"
+                android:background="@android:color/holo_green_dark"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/start_tutorial"
+                android:id="@+id/start_tutorial"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Pause"
+                android:id="@+id/main_"
+                android:shadowColor="@android:color/holo_green_light"
+                android:background="@android:color/holo_green_dark"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"/>
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Stop"
+                android:id="@+id/main_stop_tutorial"
+                android:shadowColor="@android:color/holo_red_light"
+                android:background="@android:color/holo_red_dark"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stop_restart_tutorial"
+                android:id="@+id/stop_restart_tutorial"
+                android:layout_gravity="center_horizontal" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Restart"
+                android:id="@+id/main_restart_tutorial"
+                android:shadowColor="@android:color/holo_red_light"
+                android:background="@android:color/holo_red_dark"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/main_restart_tutorial_text"
+                android:id="@+id/main_restart_tutorial_text"
+                android:layout_gravity="center_horizontal" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/fab_tutorial"
+                android:src="@android:drawable/ic_input_add"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fab_tutorial"
+                android:id="@+id/fab_tutorial_text"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:elevation="10dp"
+                android:background="#fff"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Name"
+                    android:id="@+id/runner_name"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stop"
+                    android:id="@+id/stop"
+                    android:layout_alignTop="@+id/runner_name"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="@android:color/holo_red_dark"
+                    android:shadowColor="@android:color/holo_red_light"/>
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Split"
+                    android:id="@+id/split"
+                    android:layout_toLeftOf="@+id/stop"
+                    android:layout_toStartOf="@+id/stop" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="00:00.000"
+                    android:id="@+id/runner_time"
+                    android:layout_alignBottom="@+id/runner_name"
+                    android:layout_toEndOf="@+id/runner_name" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="last split: 00:00.000"
+                    android:id="@+id/review_splits"
+                    android:layout_below="@+id/split"
+                    android:layout_centerHorizontal="true" />
+
+            </RelativeLayout>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/runner_card_tutorial"
+                android:id="@+id/runner_card_tutorial"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

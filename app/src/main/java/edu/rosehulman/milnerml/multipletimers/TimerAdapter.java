@@ -56,7 +56,7 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
     @Override
     public void onBindViewHolder(final TimerAdapter.TimerView holder, int position) {
         final RunnerTime mCurrentTimer = mTimers.get(position);
-        holder.nameView.setText(mCurrentTimer.getName());
+        holder.nameView.setText(mCurrentTimer.getName() + " ");
         mCurrentTimer.setClock(holder.runnerTime);
         mCurrentTimer.setLastSplitsButton(holder.splitsReviewButton);
 //        holder.horizontalGridView.setAdapter(mCurrentTimer.getAdapter());

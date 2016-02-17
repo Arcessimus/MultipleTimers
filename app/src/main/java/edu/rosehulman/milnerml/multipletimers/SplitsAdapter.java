@@ -33,17 +33,17 @@ public class SplitsAdapter extends RecyclerView.Adapter<SplitsAdapter.SplitView>
         if (choice == 1){
             holder.splits.setText(split.getSplit());
             holder.totalSplits.setText(split.getTotal());
-            holder.splitNumber.setText("" + position);
+            holder.splitNumber.setText("" + (position+1));
         }else if(choice == 2) {// only splits
             holder.totalSplits.setText("");
             holder.totalText.setText("");
             holder.splits.setText(split.getSplit());
-            holder.splitNumber.setText("" + position);
+            holder.splitNumber.setText("" + (position+1));
         }else if(choice == 3) {// only totals
             holder.splits.setText("");
             holder.splitsText.setText("");
             holder.totalSplits.setText(split.getTotal());
-            holder.splitNumber.setText("" + position);
+            holder.splitNumber.setText("" + (position+1));
         }
 
     }

@@ -25,22 +25,29 @@
         android:layout_centerInParent="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/adding_button"
-        android:layout_below="@+id/surfaceView"
-        android:layout_alignParentStart="true" />
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/adding_button"
         android:id="@+id/recycer_view"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/main_start"
-        android:layout_alignEnd="@+id/main_stop">
+        android:layout_alignEnd="@+id/main_stop"
+        android:layout_below="@+id/surfaceView">
     </android.support.v7.widget.RecyclerView>
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_above="@+id/main_stop"
+        android:id="@+id/fab"
+        android:layout_alignEnd="@+id/main_stop"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:src="@android:drawable/ic_input_add"/>
+        <!--android:layout_margin="@dimen/fab_margin"-->
+         />
 
     <Button
         style="?android:attr/buttonStyleSmall"
