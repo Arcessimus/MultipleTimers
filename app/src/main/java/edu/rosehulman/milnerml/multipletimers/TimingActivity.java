@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.SystemClock;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.DialogFragment;
@@ -15,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,8 +50,9 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        SharedPreferences sharedPreferences = this.getPreferences(Context.MODE_PRIVATE);
-        int choiceTemp = sharedPreferences.getInt(getString(R.string.choice), 1);
+        SharedPreferences sharedPref = this.getSharedPreferences("Prefs", Context.MODE_PRIVATE);
+        int choiceTemp = sharedPref.getInt("KEY", 17);
+        Log.d("selected", "" + choiceTemp);
         if (choiceTemp != 0){
             choiceSetting = choiceTemp;
         }
@@ -60,8 +63,8 @@ public class TimingActivity extends AppCompatActivity implements TimerAdapter.Ca
         mRecyclerView.setAdapter(mTimerAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);// it isn'startpause importing properly
-        Button addingButton = (Button) findViewById(R.id.adding_button);
+        FloatingActionButton addingButton = (FloatingActionButton) findViewById(R.id.fab);// it isn't startpause importing properly
+//        Button addingButton = (Button) findViewById(R.id.adding_button);
         addingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
