@@ -16,6 +16,24 @@ import java.util.ArrayList;
  */
 public class RunnerTime implements Parcelable{
     private Button lastSplitsButton;
+    private TextView clock;
+    Integer timelaps;
+    ArrayList<String> mSplits;
+    ArrayList<String> mTotalTimesSplits;
+    String name = "name not entered";
+    private boolean split = false;
+    int mins = 0;
+    int secs = 0;
+    int milliseconds = 0;
+    long updatedTime = 0;
+    private String lastSplit;
+    private String raceKey;
+    private boolean clockStopped = false;
+
+    public RunnerTime()
+    {
+        //
+    }
 
     public Button getLastSplitsButton() {
         return lastSplitsButton;
@@ -25,24 +43,11 @@ public class RunnerTime implements Parcelable{
         this.lastSplitsButton = lastSplitsButton;
     }
 
-    private TextView clock;
-    Integer timelaps;
-    ArrayList<String> mSplits;
-    ArrayList<String> mTotalTimesSplits;
-    String name;
-    private boolean split = false;
-    int mins = 0;
-    int secs = 0;
-    int milliseconds = 0;
 
     public void setUpdatedTime(long updatedTime) {
         this.updatedTime = updatedTime;
     }
 
-    long updatedTime = 0;
-    private String lastSplit;
-
-    private boolean clockStopped = false;
 //    public SplitsAdapter adapter; removing for simplicity
 
     protected RunnerTime(Parcel in) {
@@ -118,10 +123,6 @@ public class RunnerTime implements Parcelable{
         this.clock = (clock);
     }
 
-    public RunnerTime() {
-        this.name = "name not entered";
-    }
-
     public void setClockTime(String clockTime) {
         this.clock.setText(clockTime);
     }
@@ -187,60 +188,65 @@ public class RunnerTime implements Parcelable{
         dest.writeByte((byte) (clockStopped ? 1 : 0));
     }
 
-    public JSONObject toJSON()
+    public void setRaceKey(String key)
     {
-        JSONObject obj = new JSONObject();
-
-        try {
-            obj.put("clock", clock.getText());
-            obj.put("timelaps", timelaps);
-            obj.put("splits", mSplits.toArray());
-            obj.put("total_time_splits", mTotalTimesSplits.toArray());
-            obj.put("name", name);
-            obj.put("split", split);
-            obj.put("mins",mins);
-            obj.put("secs", secs);
-            obj.put("milliseconds", milliseconds);
-            obj.put("updatedTime", updatedTime);
-            obj.put("lastSplit", lastSplit);
-            obj.put("clockStopped", clockStopped);
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
-
-        return obj;
+        this.raceKey = key;
     }
 
-    public void toObjFromJSON(JSONObject obj)
-    {
-        try {
-            clock.setText(obj.getString("clock"));
-            timelaps = obj.getInt("timelaps");
-            name = obj.getString("name");
-            split = obj.getBoolean("split");
-            mins = obj.getInt("mins");
-            secs = obj.getInt("secs");
-            milliseconds = obj.getInt("milliseconds");
-            updatedTime = obj.getLong("updatedTime");
-            lastSplit = obj.getString("lastSplit");
-            clockStopped = obj.getBoolean("clockStopped");
+//    public JSONObject toJSON()
+//    {
+//        JSONObject obj = new JSONObject();
+//
+//        try {
+//            obj.put("clock", clock.getText());
+//            obj.put("timelaps", timelaps);
+//            obj.put("splits", mSplits.toArray());
+//            obj.put("total_time_splits", mTotalTimesSplits.toArray());
+//            obj.put("name", name);
+//            obj.put("split", split);
+//            obj.put("mins",mins);
+//            obj.put("secs", secs);
+//            obj.put("milliseconds", milliseconds);
+//            obj.put("updatedTime", updatedTime);
+//            obj.put("lastSplit", lastSplit);
+//            obj.put("clockStopped", clockStopped);
+//        }
+//        catch (JSONException e)
+//        {
+//            e.printStackTrace();
+//        }
+//
+//        return obj;
+//    }
 
-            JSONArray splitsArray = obj.getJSONArray("splits");
-            JSONArray totalSplitsArray = obj.getJSONArray("total_time_splits");
-
-            mSplits = new ArrayList<>();
-            for (int i = 0; i < splitsArray.length(); i++)
-                mSplits.add(splitsArray.getString(i));
-
-            mTotalTimesSplits = new ArrayList<>();
-            for(int j = 0; j < totalSplitsArray.length(); j++)
-                mTotalTimesSplits.add(totalSplitsArray.getString(j));
-        }
-        catch (JSONException e)
-        {
-            e.printStackTrace();
-        }
-    }
+//    public void toObjFromJSON(JSONObject obj)
+//    {
+//        try {
+//            clock.setText(obj.getString("clock"));
+//            timelaps = obj.getInt("timelaps");
+//            name = obj.getString("name");
+//            split = obj.getBoolean("split");
+//            mins = obj.getInt("mins");
+//            secs = obj.getInt("secs");
+//            milliseconds = obj.getInt("milliseconds");
+//            updatedTime = obj.getLong("updatedTime");
+//            lastSplit = obj.getString("lastSplit");
+//            clockStopped = obj.getBoolean("clockStopped");
+//
+//            JSONArray splitsArray = obj.getJSONArray("splits");
+//            JSONArray totalSplitsArray = obj.getJSONArray("total_time_splits");
+//
+//            mSplits = new ArrayList<>();
+//            for (int i = 0; i < splitsArray.length(); i++)
+//                mSplits.add(splitsArray.getString(i));
+//
+//            mTotalTimesSplits = new ArrayList<>();
+//            for(int j = 0; j < totalSplitsArray.length(); j++)
+//                mTotalTimesSplits.add(totalSplitsArray.getString(j));
+//        }
+//        catch (JSONException e)
+//        {
+//            e.printStackTrace();
+//        }
+//    }
 }

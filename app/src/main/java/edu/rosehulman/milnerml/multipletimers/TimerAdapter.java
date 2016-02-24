@@ -44,7 +44,9 @@ public class TimerAdapter extends RecyclerView.Adapter<TimerAdapter.TimerView> {
     }
 
     public void add(RunnerTime timer) {
+
         mTimers.add(timer);
+        notifyDataSetChanged();
     }
 
     @Override
