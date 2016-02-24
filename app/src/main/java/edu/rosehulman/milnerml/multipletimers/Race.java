@@ -1,11 +1,14 @@
 package edu.rosehulman.milnerml.multipletimers;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * Created by theoderic on 2/24/16.
  */
 public class Race {
 
     private String name;
+    @JsonIgnore
     private String key;
 
     public Race() {

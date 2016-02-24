@@ -5,6 +5,8 @@ import android.os.Parcelable;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +30,8 @@ public class RunnerTime implements Parcelable{
     long updatedTime = 0;
     private String lastSplit;
     private String raceKey;
+    @JsonIgnore
+    private String key;
     private boolean clockStopped = false;
 
     public RunnerTime()
@@ -191,6 +195,20 @@ public class RunnerTime implements Parcelable{
     public void setRaceKey(String key)
     {
         this.raceKey = key;
+    }
+
+    public String getRaceKey()
+    {
+        return this.raceKey;
+    }
+
+    public void setKey(String key)
+    {
+        this.key = key;
+    }
+
+    public String getKey(){
+        return this.key;
     }
 
 //    public JSONObject toJSON()
